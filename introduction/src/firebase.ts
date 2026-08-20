@@ -1,4 +1,6 @@
-import { getApp, getApps, initializeApp } from "firebase/app";
+// src/firebase.ts
+
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
@@ -11,21 +13,14 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-const requiredKeys = [
-  "VITE_FIREBASE_API_KEY",
-  "VITE_FIREBASE_AUTH_DOMAIN",
-  "VITE_FIREBASE_PROJECT_ID",
-  "VITE_FIREBASE_MESSAGING_SENDER_ID",
-  "VITE_FIREBASE_APP_ID",
-] as const;
+// Prevent Firebase from being initialized more than once
+const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-const missing = requiredKeys.filter((key) => !import.meta.env[key]);
-if (missing.length) {
-  console.warn(`Missing Firebase environment variables: ${missing.join(", ")}`);
-}
-
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-
+// Firebase Authentication
 export const auth = getAuth(app);
+
+// Firebase Firestore
 export const db = getFirestore(app);
+
+// Firebase App
 export default app;
