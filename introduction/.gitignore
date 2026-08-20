@@ -3,3 +3,5 @@ node-modules/
 .env.exampple*
 README.md*
 metadata.json*
+bun.lock*
+firestore.rules*
