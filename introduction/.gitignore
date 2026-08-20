@@ -1,0 +1,5 @@
+node-modules/
+.env*
+.env.exampple*
+README.md*
+metadata.json*
